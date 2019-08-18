@@ -1,0 +1,9 @@
+---
+web_owner: www-data
+web_group: www-data
+web_dir: /var/www/dokuwiki
+firewall_file: iptables
+server_hostname: wiki.project
+configuration_file: default.conf
+nginx_log: /var/log/nginx/logs
+firewall_file: iptables

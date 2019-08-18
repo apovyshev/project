@@ -1,0 +1,6 @@
+---
+all-hosts:
+  hosts:
+    project:
+      ansible_user: povyshev
+      ansible_host: 192.168.100.11

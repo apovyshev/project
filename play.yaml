@@ -1,0 +1,6 @@
+---
+- name: Install Dokuwiki
+  hosts: all
+  become: yes
+  roles:
+    - dokuwiki

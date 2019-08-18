@@ -1,0 +1,12 @@
+---
+- name: Install PHP
+  include: php.yaml
+
+- name: Install Nginx
+  include: nginx.yaml
+
+- name: Install Dokuwiki
+  include: dokuwiki.yaml
+
+- name: FW configuration
+  include: fw.yaml

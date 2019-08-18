@@ -1,0 +1,5 @@
+---
+
+- name: Copy iptables configuration
+  template: src={{ firewall_file }} dest=/etc/default/
+
