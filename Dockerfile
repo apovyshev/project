@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-LABEL maintainer="Alexey Povyshev"
+LABEL maintainer="Alex"
 
 RUN apk update && \
   apk add wget nginx php7 php7-common php7-mbstring php7-session php7-json php7-fpm && \
