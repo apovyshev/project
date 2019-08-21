@@ -5,18 +5,18 @@
     group: '{{ web_group }}'
     mode: 0755
 
-- file: 
-    path: '/etc/nginx/sites-enabled/default'
-    state: absent
-
 - name: Install nginx
-  apt: pkg=nginx state=present 
+  apt:
+    name: nginx
+    state: latest 
 
 - name: Start nginx at boot
   service: name=nginx state=started enabled=yes
 
 - name: Copy nginx configuration
-  template: src={{ configuration_file }} dest=/etc/nginx/sites-enabled/
+  copy:
+    src: wiki.project.conf
+    dest: "/etc/nginx/conf.d/"
 
 - name: Restart nginx at boot
   service: name=nginx state=restarted enabled=yes

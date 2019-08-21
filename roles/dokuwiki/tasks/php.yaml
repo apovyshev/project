@@ -5,10 +5,10 @@
 - name: Install php-fpm and deps
   apt: name={{ item }} state=present
   with_items:
-  - php7.0-common 
-  - php7.0-json 
-  - php7.0-opcache 
-  - php7.0-readline 
-  - php7.0-cli
-  - php7.0-fpm
-  - php7.0-mbstring
+  - php
+  - php-curl
+  - php-fpm
+  - php-mbstring 
+  - php-json 
+  - php-xml 
+  - php-common 
