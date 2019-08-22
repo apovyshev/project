@@ -1,21 +1,40 @@
 ---
- - name: Download dokuwiki tarball
-   get_url: url=https://download.dokuwiki.org/src/dokuwiki/dokuwiki-oldstable.tgz dest=/tmp/dokuwiki-oldstable.tgz
+ - name: Backup current version
+   archive:
+     path: "{{ web_dir }}"
+     dest: /var/dokuwiki-backup.tar.gz
+
+ - name: Backup data
+   archive:
+     path: /var/www/dokuwiki/data
+     dest: /var/dokuwiki-data.tar.gz
+
+ - name: Download latest stable dokuwiki tarball
+   get_url: url=https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz dest=/tmp/dokuwiki-stable.tgz
 
  - name: Unpack tarball
-   command: tar -xvf dokuwiki-oldstable.tgz chdir=/tmp
+   command: tar -xvf dokuwiki-stable.tgz chdir=/tmp
 
  - name: Move dokuwiki
    shell: cp -af /tmp/dokuwiki-*/* {{ web_dir }}
- 
- - name: Remove tmp files
-   shell: rm -rf /tmp/dokuwiki-*
-   
+
+ - name: Extract data
+   unarchive:
+     src: /var/dokuwiki-data.tar.gz
+     dest: /tmp
+     remote_src: yes
+
+ - name: Move data
+   shell: cp -af /tmp/data/* /var/www/dokuwiki/data
+
  - name: Fix permissions
    shell: chown -R {{ web_group }}:{{ web_owner }} {{ web_dir }}
 
- - name: Restart nginx
-   service: name=nginx state=restarted
+ - name: Remove tmp files
+   shell: rm -rf /tmp/dokuwiki-*
+
+ - name: Restart nginx at boot
+   service: name=nginx state=restarted enabled=yes
 
  - name: Restart php-fpm
    service: name=php7.0-fpm state=restarted
